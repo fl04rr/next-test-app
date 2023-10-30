@@ -1,7 +1,7 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import styles from './layout.module.css';
-import utilStyles from '../styles/util.module.css';
+import utilStyles from '../styles/util.module.scss';
 import Link from 'next/link';
 import { gsap } from "gsap/dist/gsap";
 import { useLayoutEffect, useRef } from 'react'
