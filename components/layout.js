@@ -1,15 +1,26 @@
 import Head from 'next/head';
 import Image from 'next/image';
-import styles from './layout.module.css';
+// import styles from './layout.module.sсss';
+import styles from './layout.module.scss'
 import utilStyles from '../styles/util.module.scss';
 import Link from 'next/link';
 import { gsap } from "gsap/dist/gsap";
-import { useLayoutEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react';
+import { MantineProvider, createTheme, Button } from '@mantine/core';
+import { ColorSchemeScript } from '@mantine/core';
 
 const name = "Vlad";
 export const siteTitle = 'Next.js Blog'
 
 export default function Layout({children, home}){
+
+    const theme = createTheme({
+        defaultGradient: {
+          from: 'orange',
+          to: 'red',
+          deg: 45,
+        },
+      });
 
     const profileImageRef = useRef(null);
 
@@ -28,6 +39,7 @@ export default function Layout({children, home}){
       }, []);
 
     return (
+        <MantineProvider theme={theme}>
         <div className={styles.container}>
             <Head>
                 <link rel="icon" href="/favicon.ico" />
@@ -43,6 +55,7 @@ export default function Layout({children, home}){
                 />
                 <meta name="og:title" content={siteTitle} />
                 <meta name="twitter:card" content="summary_large_image" />
+                <ColorSchemeScript />
             </Head>
             <header className={styles.header} >
                 {home ? (
@@ -57,6 +70,7 @@ export default function Layout({children, home}){
                             alt=""
                         />
                         <h1 className={utilStyles.heading2Xl}>{name}</h1>
+                        <Button variant="gradient">button</Button>
                     </>
                 ) : (
                     <> 
@@ -85,5 +99,6 @@ export default function Layout({children, home}){
                 </div>
             )}
         </div>
+        </MantineProvider>
     );
 }
