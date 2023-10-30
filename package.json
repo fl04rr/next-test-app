@@ -6,9 +6,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "gray-matter": "^4.0.3",
+    "gsap": "^3.12.2",
     "next": "latest",
     "react": "18.2.0",
-    "react-dom": "18.2.0"
+    "react-dom": "18.2.0",
+    "remark": "^15.0.1",
+    "remark-html": "^16.0.1"
   },
   "engines": {
     "node": ">=18"
