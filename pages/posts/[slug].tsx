@@ -74,8 +74,10 @@ export async function getStaticProps({ params, locale }) {
       return <div>Loading...</div>
     }
 
+    const home:boolean = false
+
    return(
-    <Layout>
+    <Layout home={home}>
       <Head>
         <title>{post.heading}</title>
       </Head>
