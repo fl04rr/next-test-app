@@ -16,13 +16,13 @@ interface Post {
   slug: string;
 }
 
-export async function getStaticProps({ params }) {
+export async function getStaticProps({ params, locale }) {
 
   const {slug} = params;
 
   const QUERY:string = gql`
   {
-    post(where: { slug: "${slug}"}) {
+    post(where: { slug: "${slug}"}, locales: ${locale}) {
       id
       heading
       description
