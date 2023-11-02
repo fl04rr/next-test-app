@@ -1,5 +1,5 @@
 import Head from 'next/head';
-import styles from './layout.module.scss'
+import styles from './layout.module.scss';
 import Link from 'next/link';
 import { MantineProvider, createTheme, Button} from '@mantine/core';
 import { ColorSchemeScript } from '@mantine/core';

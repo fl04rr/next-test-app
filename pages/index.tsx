@@ -30,6 +30,7 @@ export async function getStaticProps({ locale }) {
         id
         heading
         description
+        slug
       }
     }`
 
@@ -57,7 +58,7 @@ export default function Home({posts}: HomeProps){
         <Stack className={utilStyles.stack}>
           {posts.map(({ id, heading, description, slug }) => (
             <Link key={id} href={`/posts/${slug}`}>
-              <BlogItem heading={heading} description={description}/>
+              <BlogItem heading={heading} description={description} slug={slug}/>
             </Link>
           ))}
         </Stack>
