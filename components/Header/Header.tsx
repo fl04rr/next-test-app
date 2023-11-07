@@ -7,7 +7,7 @@ import BackToHome from '../BackToHome/BackToHome';
 interface HeaderProps {
   home: boolean;
 }
-export default function ({ home}:HeaderProps) {
+export default function ({home}: HeaderProps) {
   const { data: session } = useSession();
 
   return (

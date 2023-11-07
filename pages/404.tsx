@@ -1,7 +1,7 @@
 import Layout from '../components/layout';
 import styles from './styles.module.scss';
 
-export default async function Custom404() {
+export default function Custom404() {
   return (
     <Layout home={false}>
       <div className={styles.wrapper}>
