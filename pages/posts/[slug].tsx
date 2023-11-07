@@ -2,17 +2,28 @@ import { GraphQLClient } from 'graphql-request';
 import { gql } from 'graphql-request';
 import { useRouter } from 'next/router';
 import Layout from '../../components/layout';
-import { Text } from '@mantine/core';
 import Head from 'next/head';
-import styles from './styles.module.scss';
+import PostContent from '../../components/PostContent/PostContent';
+import { useSession } from 'next-auth/react';
+import SignInBanner from '../../components/SignInBanner/SignInBanner';
 
 const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
+
+interface Content {
+  text: string;
+}
+
+interface Image {
+  url: string;
+}
 
 interface Post {
   id: string;
   heading: string;
   description: string;
   slug: string;
+  content: Content;
+  image: Image;
 }
 
 export async function getStaticProps({ params, locale }) {
@@ -24,6 +35,12 @@ export async function getStaticProps({ params, locale }) {
       id
       heading
       description
+      image{
+        url
+      }
+      content{
+        text
+      }
     }
   }`;
 
@@ -62,7 +79,7 @@ export async function getStaticPaths() {
   };
 }
 
-export default function Post({ post }, { pat }) {
+export default function Post({ post }) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -71,18 +88,36 @@ export default function Post({ post }, { pat }) {
 
   const home: boolean = false;
 
+  const { data: session, status } = useSession();
+
   return (
     <Layout home={home}>
       <Head>
         <title>{post.heading}</title>
+        <meta name='description' content={post.description} />
+        <meta property='og:image' content={post.image.url} />
+        <meta name='og:title' content={post.heading} />
+        <meta name='twitter:card' content='summary_large_image' />
       </Head>
-      <Text size='lg' fw={700}>
-        {post.heading}
-      </Text>
-      <section className={styles.content}>
-        <Text>{post.description}</Text>
-      </section>
-      {pat}
+
+      {status === 'authenticated' ? (
+        <PostContent
+          heading={post.heading}
+          description={post.description}
+          content={post.content.text}
+          image={post.image.url}
+        />
+      ) : (
+        <>
+          <SignInBanner />
+          <PostContent
+            heading=''
+            description=''
+            content=''
+            image={post.image.url}
+          />
+        </>
+      )}
     </Layout>
   );
 }

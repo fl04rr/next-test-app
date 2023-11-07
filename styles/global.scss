@@ -1,4 +1,4 @@
-@import '~include-media';
+// @import '~include-media';
 
 html,
 body {
@@ -17,17 +17,22 @@ body {
 a {
   color: #0070f3;
   text-decoration: none;
-
-  @include media('<tablet') {
-    color: red;
-  }
 }
 
-a:hover {
-  text-decoration: underline;
-}
+//   @include media('<tablet') {
+//     color: red;
+//   }
+// }
 
-img {
-  max-width: 100%;
-  display: block;
+// a:hover {
+//   text-decoration: underline;
+// }
+
+// img {
+//   max-width: 100%;
+//   display: block;
+// }
+
+body {
+  margin: 0;
 }

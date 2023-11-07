@@ -7,13 +7,21 @@ import React from 'react';
 import { GraphQLClient } from 'graphql-request';
 import { gql } from 'graphql-request';
 import BlogItem from '../components/BlogItem/BlogItem';
-import { Stack, Divider } from '@mantine/core';
+import { SimpleGrid, Divider } from '@mantine/core';
+import styles from './styles.module.scss';
+import { useSession } from 'next-auth/react';
+import Image from 'next/image';
+
+interface Image {
+  url: string;
+}
 
 interface Post {
   id: string;
   heading: string;
   description: string;
   slug: string;
+  image: Image;
 }
 
 interface HomeProps {
@@ -29,6 +37,9 @@ export async function getStaticProps({ locale }) {
         id
         heading
         description
+        image{
+          url
+        }
         slug
       }
     }`;
@@ -48,22 +59,23 @@ export default function Home({ posts }: HomeProps) {
       <Head>
         <title>{siteTitle}</title>
       </Head>
-
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <Divider my='sm' />
 
-        <Stack className={utilStyles.stack}>
-          {posts.map(({ id, heading, description, slug }) => (
+        <SimpleGrid cols={2} className={styles.grid}>
+          {posts.map(({ id, heading, description, slug, image }) => (
             <Link key={id} href={`/posts/${slug}`}>
               <BlogItem
+                key={id}
                 heading={heading}
                 description={description}
+                image={`${image.url}`}
                 slug={slug}
               />
             </Link>
           ))}
-        </Stack>
+        </SimpleGrid>
       </section>
     </Layout>
   );
