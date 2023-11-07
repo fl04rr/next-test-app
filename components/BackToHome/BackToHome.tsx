@@ -9,9 +9,9 @@ export default function BackToHome({ home }: IsHomeProps) {
   return (
     <>
       {!home && (
-        <div className={styles.backToHome}>
-          <Link href='/'>← Back to home</Link>
-        </div>
+        <Link href='/' className={styles.btn}>
+          ← Back to home
+        </Link>
       )}
     </>
   );

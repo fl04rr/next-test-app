@@ -1,13 +1,10 @@
 import Head from 'next/head';
 import styles from './layout.module.scss';
-import Link from 'next/link';
 import { MantineProvider, createTheme, Button } from '@mantine/core';
 import { ColorSchemeScript } from '@mantine/core';
 import Header from './Header/Header';
-import BackToHome from './BackToHome/BackToHome';
 
-const name = 'Vlad';
-export const siteTitle = 'Next.js Blog';
+export const siteTitle:string = 'Next.js Blog';
 
 export default function Layout({ children, home }) {
   return (
@@ -29,9 +26,8 @@ export default function Layout({ children, home }) {
           <meta name='twitter:card' content='summary_large_image' />
           <ColorSchemeScript />
         </Head>
-        <Header home={home} name={name} />
+        <Header home={home} />
         <main>{children}</main>
-        <BackToHome home={home} />
       </div>
     </MantineProvider>
   );
