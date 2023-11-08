@@ -1,3 +1,5 @@
+@import '~include-media';
+
 .overlay {
   position: fixed;
   top: 0;
@@ -16,12 +18,17 @@
   height: auto;
   padding: 3rem;
   border-radius: 15px;
-  background: white;
-  box-shadow: 15px 15px 8px 0px rgba(34, 60, 80, 0.2);
+  background: var(--mantine-color-body);
+  box-shadow: var(--mantine-shadow-xs);
   text-align: center;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  border: 1px solid var(--mantine-color-default-border);
+
+  @include media('<tablet'){
+    width: calc(100% - 40px);
+  }
 }
 
 .button {
@@ -29,12 +36,24 @@
   align-items: center;
   padding: 1rem 2rem;
   border-radius: 5px;
-  border: 1px solid #eaeaea;
-  background: white;
-  gap: 5px 5px;
+  border: 2px solid var(--mantine-color-gray-light);
+  background: var(--mantine-color-body);
+  gap: 5px;
   margin: 0 auto;
   cursor: pointer;
   margin-top: 8px;
+  color: var(--text-color);
+
+  @include media('<tablet'){
+    padding: .5rem 1rem;
+    gap: 0;
+    margin-top: 20px;
+  }
+}
+
+.back{
+  color: var(--mantine-color-violet-filled);
+  border: 2px solid var(--mantine-color-violet-light);
 }
 
 .text {

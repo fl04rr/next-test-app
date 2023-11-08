@@ -1,3 +1,5 @@
+@import '~include-media';
+
 .wrapper {
   height: calc(100vh - 170px);
   display: flex;
@@ -19,6 +21,10 @@
 
 .grid {
   width: 45%;
+  @include media('<tablet'){
+    width: 100%;
+    padding: 10px 20px;
+  }
   margin: 0 auto;
 }
 

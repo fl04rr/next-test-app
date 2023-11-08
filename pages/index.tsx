@@ -62,8 +62,7 @@ export default function Home({ posts }: HomeProps) {
       <section className={`${utilStyles.headingMd} ${utilStyles.padding1px}`}>
         <h2 className={utilStyles.headingLg}>Blog</h2>
         <Divider my='sm' />
-
-        <SimpleGrid cols={2} className={styles.grid}>
+        <SimpleGrid cols={{ base: 1, sm: 2}} className={styles.grid}>
           {posts.map(({ id, heading, description, slug, image }) => (
             <Link key={id} href={`/posts/${slug}`}>
               <BlogItem

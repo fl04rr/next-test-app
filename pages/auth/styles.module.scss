@@ -3,8 +3,8 @@
   align-items: center;
   padding: 1rem 2rem;
   border-radius: 5px;
-  border: 1px solid #eaeaea;
-  background: white;
+  border: 1px solid var(--mantine-color-default-border);
+  background: var(--mantine-color-body);
   gap: 10px;
   margin: 0 auto;
   cursor: pointer;
@@ -20,7 +20,7 @@
 
 .popup {
   border-radius: 15px;
-  background-color: #f5f5f5;
+  background-color: var(--mantine-color-default-hover);
   padding: 30px;
-  box-shadow: 5px 5px 8px 0px rgba(34, 60, 80, 0.2);
+  box-shadow: var(--mantine-shadow-xl);
 }

@@ -1,14 +1,14 @@
 import Head from 'next/head';
 import styles from './layout.module.scss';
 import { MantineProvider, createTheme, Button } from '@mantine/core';
-import { ColorSchemeScript } from '@mantine/core';
 import Header from './Header/Header';
+import Footer from './Footer/Footer';
 
 export const siteTitle:string = 'Next.js Blog';
 
 export default function Layout({ children, home }) {
   return (
-    <MantineProvider>
+    <MantineProvider defaultColorScheme="dark">
       <div className={styles.container}>
         <Head>
           <link rel='icon' href='/favicon.ico' />
@@ -24,10 +24,10 @@ export default function Layout({ children, home }) {
           />
           <meta name='og:title' content={siteTitle} />
           <meta name='twitter:card' content='summary_large_image' />
-          <ColorSchemeScript />
         </Head>
         <Header home={home} />
         <main>{children}</main>
+        <Footer />
       </div>
     </MantineProvider>
   );
