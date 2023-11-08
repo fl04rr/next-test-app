@@ -30,6 +30,7 @@
 .headingMd {
   font-size: 1.2rem;
   line-height: 1.5;
+  min-height: calc(100vh - 150px);
 }
 
 .borderCircle {
