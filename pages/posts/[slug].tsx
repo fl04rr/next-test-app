@@ -10,7 +10,7 @@ import SignInBanner from '../../components/SignInBanner/SignInBanner';
 const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
 
 interface Content {
-  text: string;
+  html: string;
 }
 
 interface Image {
@@ -39,7 +39,7 @@ export async function getStaticProps({ params, locale }) {
         url
       }
       content{
-        text
+        html
       }
     }
   }`;
@@ -104,7 +104,7 @@ export default function Post({ post }) {
         <PostContent
           heading={post.heading}
           description={post.description}
-          content={post.content.text}
+          content={post.content.html}
           image={post.image.url}
         />
       ) : (

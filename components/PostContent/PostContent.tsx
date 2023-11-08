@@ -15,9 +15,11 @@ export default function PostContent({
   content,
   image,
 }: Props) {
+
   return (
     <>
       <Image
+        priority
         src={image}
         alt={heading}
         width={1920}
@@ -46,7 +48,7 @@ export default function PostContent({
       </section>
       <section className={styles.content}>
         {content ? (
-          <Text>{content}</Text>
+          <Text dangerouslySetInnerHTML={{__html: content}} />
         ) : (
           <Skeleton height={500} radius='sm'></Skeleton>
         )}
