@@ -13,7 +13,7 @@ export default function SignInBanner() {
         </Text>
         <Text c='dimmed'>please, Sign In</Text>
         <Group gap='xs'>
-          <Link href='/' className={styles.button}>
+          <Link href='/' className={`${styles.button} ${styles.back}`}>
             Go back <IconArrowBackUp />
           </Link>
           <button className={styles.button} onClick={() => signIn()}>

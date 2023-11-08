@@ -1,8 +1,9 @@
 import styles from './styles.module.scss';
-import { Text, Avatar } from '@mantine/core';
+import { Text, Avatar, ActionIcon, Group } from '@mantine/core';
 import { useSession, signIn, signOut } from 'next-auth/react';
 import { IconLogin2, IconLogout } from '@tabler/icons-react';
 import BackToHome from '../BackToHome/BackToHome';
+import ThemeToggler from '../ThemeToggler/ThemeToggler';
 
 interface HeaderProps {
   home: boolean;
@@ -13,20 +14,37 @@ export default function ({home}: HeaderProps) {
   return (
     <header className={styles.header}>
       <div>
-        <BackToHome home={home} />
+        <Group>
+          <BackToHome home={home} />
+          <ThemeToggler />
+        </Group>
       </div>
       {session ? (
         <div className={styles.logedIn}>
           <div className={styles.message}>
-            <Text size='sm' c='dimmed'>
+            <Text size='sm' c='dimmed' className={styles.userName}>
               {session.user.name}
             </Text>
             <Avatar src={session.user.image} alt="user's image" />
           </div>
-          <IconLogout onClick={() => signOut()} className={styles.hoverable} />
+          <ActionIcon          
+            variant="default"
+            size="lg"
+            aria-label="Sign out"
+            onClick={() => signOut()}
+          >
+              <IconLogout className={styles.hoverable} />
+          </ActionIcon>
         </div>
       ) : (
-        <IconLogin2 onClick={() => signIn()} className={styles.hoverable} />
+        <ActionIcon          
+          variant="default"
+          size="lg"
+          aria-label="Sign In"
+          onClick={() => signIn()}
+        >
+          <IconLogin2 className={styles.hoverable} />
+        </ActionIcon>
       )}
     </header>
   );
