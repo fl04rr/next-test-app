@@ -67,7 +67,7 @@ export default function SignIn({
       <article className={styles.wrapper}>
         <section className={styles.popup}>
           <Text fw={700}>Sign in with</Text>
-          {Object.values(providers).map((provider) => (
+          {providers && Object.values(providers).map((provider) => (
             <div key={provider.name}>
               <button
                 className={styles.button}
