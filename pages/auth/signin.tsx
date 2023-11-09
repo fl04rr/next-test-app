@@ -49,17 +49,19 @@
 //   };
 // }
 
-import type { InferGetStaticPropsType } from 'next';
+
+import type { GetServerSidePropsContext, InferGetStaticPropsType } from 'next';
 import { getProviders, signIn } from 'next-auth/react';
 import { authOptions } from '../api/auth/[...nextauth]';
 import Layout from '../../components/layout';
 import styles from './styles.module.scss';
 import { IconBrandGoogleFilled } from '@tabler/icons-react';
 import { Text } from '@mantine/core';
+import { getServerSession } from 'next-auth';
 
 export default function SignIn({
   providers,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
+}: InferGetStaticPropsType<typeof getServerSideProps>) {
   return (
     <Layout home={false}>
       <article className={styles.wrapper}>
@@ -82,7 +84,13 @@ export default function SignIn({
   );
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await getServerSession(context.req, context.res, authOptions);
+
+  if (session) {
+    return { redirect: { destination: '/' } };
+  }
+
   const providers = await getProviders();
 
   return {
