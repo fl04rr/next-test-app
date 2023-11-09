@@ -19,7 +19,17 @@ export default function SignIn({
       <article className={styles.wrapper}>
         <section className={styles.popup}>
           <Text fw={700}>Sign in with</Text>
-          
+          {Object.values(providers).map((provider) => (
+            <div key={provider.name}>
+              <button
+                className={styles.button}
+                onClick={() => signIn(provider.id)}
+              >
+                {provider.name === 'Google' && <IconBrandGoogleFilled />} Sign
+                in with {provider.name}
+              </button>
+            </div>
+          ))}
         </section>
       </article>
     </Layout>
