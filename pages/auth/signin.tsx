@@ -1,6 +1,7 @@
 import type {
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
+  InferGetStaticPropsType,
 } from 'next';
 import { getProviders, signIn } from 'next-auth/react';
 import { getServerSession } from 'next-auth/next';
@@ -11,7 +12,7 @@ import { Text } from '@mantine/core';
 
 export default function SignIn({
   providers,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+}: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
     <Layout home={false}>
@@ -35,7 +36,7 @@ export default function SignIn({
   );
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
   const providers = await getProviders()
   return {
     props: {
