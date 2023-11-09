@@ -4,7 +4,6 @@ import type {
 } from 'next';
 import { getProviders, signIn } from 'next-auth/react';
 import { getServerSession } from 'next-auth/next';
-import { authOptions } from '../api/auth/[...nextauth]';
 import Layout from '../../components/layout';
 import styles from './styles.module.scss';
 import { IconBrandGoogleFilled } from '@tabler/icons-react';
@@ -19,7 +18,7 @@ export default function SignIn({
       <article className={styles.wrapper}>
         <section className={styles.popup}>
           <Text fw={700}>Sign in with</Text>
-          {Object.values(providers).map((provider) => (
+          {providers && Object.values(providers).map((provider) => (
             <div key={provider.name}>
               <button
                 className={styles.button}
@@ -36,17 +35,35 @@ export default function SignIn({
   );
 }
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const session = await getServerSession(context.req, context.res, authOptions);
-
-  if (session) {
-    return { redirect: { destination: '/' } };
-  }
-
-  const providers = await getProviders();
-
+export async function getServerSideProps(context) {
+  const providers = await getProviders()
   return {
-    props: { providers: providers ?? [] },
-  };
+    props: {
+      providers,
+    },
+  }
 }
 
+// export async function getServerSideProps(context: GetServerSidePropsContext) {
+//   const session = await getServerSession(context.req, context.res, authOptions);
+
+//   if (session) {
+//     return { redirect: { destination: '/' } };
+//   }
+
+//   const providers = await getProviders();
+
+//   return {
+//     props: { providers: providers ?? [] },
+//   };
+// }
+
+// export async function getServerSideProps() {
+//   const providers = await getProviders();
+
+//   return {
+//       props: {
+//           providers
+//       }
+//   }
+// }
