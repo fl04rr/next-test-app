@@ -6,7 +6,6 @@ import Head from 'next/head';
 import PostContent from '../../components/PostContent/PostContent';
 import { useSession } from 'next-auth/react';
 import SignInBanner from '../../components/SignInBanner/SignInBanner';
-import { getServerSession } from "next-auth/next"
 
 const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
 

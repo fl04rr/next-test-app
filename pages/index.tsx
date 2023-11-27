@@ -11,7 +11,6 @@ import { SimpleGrid, Divider, Pagination, Group, Skeleton } from '@mantine/core'
 import styles from './styles.module.scss';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import getPosts from '../lib/getPosts';
 
 interface Image {
   url: string;
@@ -35,9 +34,6 @@ export const getServerSideProps = async ({ locale, query }) => {
 
 	const currentPage: number = query.page ? Number(query.page) : 1;
   	const postsInPage: number = 4;	
-
-
-	// const posts = await getPosts(locale, postsInPage, currentPage);
 
 	const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
 
