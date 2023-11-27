@@ -35,6 +35,7 @@ export const getServerSideProps = async ({ locale, query }) => {
 	const currentPage: number = query.page ? Number(query.page) : 1;
   	const postsInPage: number = 4;	
 
+	
 	const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
 
 	const QUERY: string = gql`
