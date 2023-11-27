@@ -6,6 +6,7 @@ import Head from 'next/head';
 import PostContent from '../../components/PostContent/PostContent';
 import { useSession } from 'next-auth/react';
 import SignInBanner from '../../components/SignInBanner/SignInBanner';
+import { getServerSession } from "next-auth/next"
 
 const hygraph = new GraphQLClient(process.env.HYGRAPH_ENDPOINT);
 
@@ -26,7 +27,7 @@ interface Post {
   image: Image;
 }
 
-export async function getStaticProps({ params, locale }) {
+export async function getServerSideProps({ params, locale }) {
   const { slug } = params;
 
   const QUERY: string = gql`
@@ -35,6 +36,7 @@ export async function getStaticProps({ params, locale }) {
       id
       heading
       description
+	  slug
       image{
         url
       }
@@ -53,42 +55,16 @@ export async function getStaticProps({ params, locale }) {
   };
 }
 
-export async function getStaticPaths() {
-  const QUERY: string = gql`
-    {
-      posts {
-        slug
-      }
-    }
-  `;
-
-  const { posts } = await hygraph.request<{ posts: Post[] }>(QUERY);
-
-  const locales = ['en', 'ru'];
-
-  const paths = posts.flatMap(({ slug }) =>
-    locales.map((locale) => ({
-      params: { slug },
-      locale,
-    }))
-  );
-
-  return {
-    paths,
-    fallback: false,
-  };
-}
-
-export default function Post({ post }) {
+const Post = (({ post }) => {
   const router = useRouter();
 
   if (router.isFallback) {
     return <div>Loading...</div>;
   }
 
-  const home: boolean = false;
-
   const { data: session, status } = useSession();
+
+  const home: boolean = false;
 
   return (
     <Layout home={home}>
@@ -106,18 +82,24 @@ export default function Post({ post }) {
           description={post.description}
           content={post.content.html}
           image={post.image.url}
+		      slug={post.slug}
+		      id={post.id}
         />
       ) : (
         <>
-          <SignInBanner />
+          {session && <SignInBanner />}
           <PostContent
             heading=''
             description=''
             content=''
             image={post.image.url}
+            slug=''
+            id={post.id}
           />
         </>
       )}
     </Layout>
   );
-}
+});
+
+export default Post;

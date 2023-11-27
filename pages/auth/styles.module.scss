@@ -3,12 +3,17 @@
   align-items: center;
   padding: 1rem 2rem;
   border-radius: 5px;
-  border: 1px solid var(--mantine-color-default-border);
+  border: 2px solid var(--mantine-color-violet-light);
   background: var(--mantine-color-body);
   gap: 10px;
   margin: 0 auto;
   cursor: pointer;
   margin-top: 8px;
+  color: var(--mantine-color-violet-filled);
+
+  &:hover{
+    color: var(--mantine-color-violet-filled-hover);
+  }
 }
 
 .wrapper {
@@ -20,7 +25,8 @@
 
 .popup {
   border-radius: 15px;
-  background-color: var(--mantine-color-default-hover);
+  background-color: var(--mantine-color-default);
   padding: 30px;
   box-shadow: var(--mantine-shadow-xl);
+  border: 1px solid var(--mantine-color-default-border);
 }

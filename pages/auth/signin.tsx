@@ -3,16 +3,30 @@ import type {
   InferGetServerSidePropsType,
   InferGetStaticPropsType,
 } from 'next';
-import { getProviders, signIn } from 'next-auth/react';
-import { getServerSession } from 'next-auth/next';
+import { getProviders, getSession, signIn } from 'next-auth/react';
 import Layout from '../../components/layout';
 import styles from './styles.module.scss';
 import { IconBrandGoogleFilled } from '@tabler/icons-react';
 import { Text } from '@mantine/core';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function SignIn({
   providers,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+
+  const router = useRouter();
+  
+  const checkSession = async () => {
+    const session = await getSession();
+    if (session) {
+      router.back();
+    }
+  };
+
+  useEffect(() => {
+    checkSession();
+  }, []);
 
   return (
     <Layout home={false}>
@@ -36,35 +50,13 @@ export default function SignIn({
   );
 }
 
-export async function getStaticProps(context) {
-  const providers = await getProviders()
+export async function getStaticProps() {
+  
+  const providers = await getProviders();
+
   return {
     props: {
       providers,
     },
   }
 }
-
-// export async function getServerSideProps(context: GetServerSidePropsContext) {
-//   const session = await getServerSession(context.req, context.res, authOptions);
-
-//   if (session) {
-//     return { redirect: { destination: '/' } };
-//   }
-
-//   const providers = await getProviders();
-
-//   return {
-//     props: { providers: providers ?? [] },
-//   };
-// }
-
-// export async function getServerSideProps() {
-//   const providers = await getProviders();
-
-//   return {
-//       props: {
-//           providers
-//       }
-//   }
-// }

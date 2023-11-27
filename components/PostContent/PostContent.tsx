@@ -1,20 +1,31 @@
-import { Text, Skeleton } from '@mantine/core';
+import { Text, Skeleton, ActionIcon, Group } from '@mantine/core';
 import Image from 'next/image';
 import styles from './styles.module.scss';
+import { observer } from 'mobx-react';
+import { IconHeart, IconHeartFilled} from '@tabler/icons-react';
+import likeStore from '../../lib/likeStore';
 
 interface Props {
   heading: string;
   description: string;
   content: string;
   image: string;
+  slug: string;
+  id: string;
 }
 
-export default function PostContent({
+export function PostContent({
   heading,
   description,
   content,
   image,
+  slug,
+  id
 }: Props) {
+
+  const handleLike = () => {
+    likeStore.handleLike(id);
+  };
 
   return (
     <>
@@ -31,9 +42,22 @@ export default function PostContent({
           {heading ? heading : <Skeleton height={20} width={300} radius='xl' />}
         </h1>
         {description ? (
+          <>
           <Text size='xl' c='dimmed' className={styles.description}>
             {description}
           </Text>
+          <Group>
+            <ActionIcon
+              className={styles.likeIcon}        
+              variant="default"
+              size="lg"
+              aria-label="Like"
+              onClick={handleLike} >
+               {likeStore.getIsLiked(id) ?  <IconHeartFilled /> : <IconHeart />}
+            </ActionIcon>
+            <Text size='xl' c='dimmed' >{likeStore.getLikes(id)}</Text>
+        </Group>
+        </>
         ) : (
           <>
             <Skeleton height={10} width={220} radius='xl' />
@@ -56,3 +80,5 @@ export default function PostContent({
     </>
   );
 }
+
+export default observer(PostContent);

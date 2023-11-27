@@ -20,12 +20,21 @@
 }
 
 .grid {
-  width: 45%;
+  width: 775px;
+  margin: 0 auto;
+  min-height: 100vh;
+  padding: 20px 0;
+
   @include media('<tablet'){
     width: 100%;
     padding: 10px 20px;
   }
-  margin: 0 auto;
+}
+
+.pagination{
+  // padding: 20px 0;
+  padding: 15px 0 0;
+  --pagination-active-bg: var(--mantine-color-violet-filled);
 }
 
 .previewBlock {
@@ -37,4 +46,9 @@
   img {
     border-radius: 10px;
   }
+}
+
+
+.skeletonItem{
+  height: 400px;
 }
