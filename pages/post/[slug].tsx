@@ -86,7 +86,7 @@ const Post = (({ post }) => {
         />
       ) : (
         <>
-          {session && <SignInBanner />}
+          {!session && <SignInBanner />}
           <PostContent
             heading=''
             description=''

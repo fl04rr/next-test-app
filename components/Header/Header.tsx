@@ -4,12 +4,15 @@ import { useSession, signIn, signOut } from 'next-auth/react';
 import { IconLogin2, IconLogout } from '@tabler/icons-react';
 import BackToHome from '../BackToHome/BackToHome';
 import ThemeToggler from '../ThemeToggler/ThemeToggler';
+import { Provider } from 'mobx-react';
+import { useRouter } from 'next/router';
 
 interface HeaderProps {
   home: boolean;
 }
 export default function ({home}: HeaderProps) {
   const { data: session } = useSession();
+  const { asPath } = useRouter()
 
   return (
     <header className={styles.header}>
@@ -41,7 +44,7 @@ export default function ({home}: HeaderProps) {
           variant="default"
           size="lg"
           aria-label="Sign In"
-          onClick={() => signIn()}
+          onClick={() => signIn(asPath)}
         >
           <IconLogin2 className={styles.hoverable} />
         </ActionIcon>

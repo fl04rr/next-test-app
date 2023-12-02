@@ -15,18 +15,18 @@ export default function SignIn({
   providers,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
 
-  const router = useRouter();
+  // const router = useRouter();
   
-  const checkSession = async () => {
-    const session = await getSession();
-    if (session) {
-      router.back();
-    }
-  };
+  // const checkSession = async () => {
+  //   const session = await getSession();
+  //   if (session) {
+  //     router.back();
+  //   }
+  // };
 
-  useEffect(() => {
-    checkSession();
-  }, []);
+  // useEffect(() => {
+  //   checkSession();
+  // }, []);
 
   return (
     <Layout home={false}>
@@ -37,7 +37,7 @@ export default function SignIn({
             <div key={provider.name}>
               <button
                 className={styles.button}
-                onClick={() => signIn(provider.id)}
+                onClick={() => signIn(provider.id, { callbackUrl: '/' })}
               >
                 {provider.name === 'Google' && <IconBrandGoogleFilled />} Sign
                 in with {provider.name}

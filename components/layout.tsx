@@ -8,7 +8,6 @@ export const siteTitle:string = 'Next.js Blog';
 
 export default function Layout({ children, home }) {
   return (
-    <MantineProvider defaultColorScheme="dark">
       <div className={styles.container}>
         <Head>
           <link rel='icon' href='/favicon.ico' />
@@ -29,6 +28,5 @@ export default function Layout({ children, home }) {
         <main>{children}</main>
         <Footer />
       </div>
-    </MantineProvider>
   );
 }
